@@ -1,0 +1,29 @@
+<h2>{{appSettings.title}}</h2>
+<h3>Filters</h3>
+<input type="text" ng-model="customersFilter" />
+<br/><br/>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th ng-click="doSort('name')">Name</th>
+			<th ng-click="doSort('city')">City</th>
+			<th ng-click="doSort('orderTotal')">Order Total</th>
+			<th ng-click="doSort('joined')">Joined</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tr ng-repeat="cust in customers | filter:customersFilter | limitTo:4 | orderBy:sortBy:reverse" class="repeat-animation">
+		<td>{{cust.name | uppercase}}</td>
+		<td>{{cust.city | lowercase}}</td>
+		<td>{{cust.orderTotal | currency: 'PLN'}}</td>
+		<td>{{cust.joined | date: 'longDate'}}</td>
+		<td><a href="#/orders/{{cust.id}}">View Orders</a></td>
+		<td class="center">
+			<span class="glyphicon glyphicon-remove delete" ng-click="deleteCustomer(cust.id)"></span>
+		</td>
+	</tr>
+</table>
+<br>
+<span>Total customers: {{customers.length}}</span>
+<br><br>
+<footer>Version: {{appSettings.version}}</footer>
